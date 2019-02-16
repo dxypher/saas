@@ -11,5 +11,6 @@ HTML
     .wrapper
       = render 'layouts/navigation/layout'
       .content-wrapper
-        = yield
+        .content.container-fluid
+          = yield
       = render 'layouts/navigation/footer'
