@@ -7,10 +7,16 @@
         null,
         1,
         null,
+        null,
+        1,
         null
       ],
       "/Users/nikhil/Desktop/rails/saas/app/models/application_record.rb": [
         1,
+        1,
+        null
+      ],
+      "/Users/nikhil/Desktop/rails/saas/app/helpers/accounts_helper.rb": [
         1,
         null
       ],
@@ -20,6 +26,49 @@
       ],
       "/Users/nikhil/Desktop/rails/saas/app/helpers/application_helper.rb": [
         1,
+        1,
+        null,
+        null,
+        null,
+        null,
+        null,
+        5,
+        null,
+        null,
+        1,
+        null,
+        11,
+        5,
+        5,
+        null,
+        5,
+        5,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "/Users/nikhil/Desktop/rails/saas/app/helpers/devise_helper.rb": [
+        1,
+        1,
+        4,
+        null,
+        4,
+        1,
+        null,
+        null,
+        null,
+        1,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        1,
+        null,
         null
       ],
       "/Users/nikhil/Desktop/rails/saas/app/controllers/activity_controller.rb": [
@@ -32,6 +81,67 @@
         null
       ],
       "/Users/nikhil/Desktop/rails/saas/app/controllers/application_controller.rb": [
+        1,
+        1,
+        null,
+        1,
+        1,
+        null,
+        1,
+        1,
+        11,
+        7,
+        null,
+        4,
+        null,
+        null,
+        null
+      ],
+      "/Users/nikhil/Desktop/rails/saas/app/controllers/registrations_controller.rb": [
+        1,
+        1,
+        null,
+        1,
+        null,
+        1,
+        6,
+        null,
+        null,
+        1,
+        2,
+        null,
+        null
+      ],
+      "/Users/nikhil/Desktop/rails/saas/app/controllers/accounts_controller.rb": [
+        1,
+        1,
+        2,
+        2,
+        null,
+        null,
+        1,
+        2,
+        2,
+        1,
+        1,
+        1,
+        null,
+        1,
+        null,
+        null,
+        null,
+        1,
+        1,
+        2,
+        null,
+        null,
+        null,
+        null
+      ],
+      "/Users/nikhil/Desktop/rails/saas/app/models/account.rb": [
+        1,
+        1,
+        null,
         1,
         null
       ],
@@ -58,6 +168,6 @@
         0
       ]
     },
-    "timestamp": 1550346927
+    "timestamp": 1550628407
   }
 }
