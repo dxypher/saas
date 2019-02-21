@@ -16,7 +16,7 @@ RSpec.feature "SignUpProcesses", type: :feature do
     click_button "Sign Up"
 
     expect(current_path).to eql(new_accounts_path)
-    
+
     within '#new_account' do
       fill_in "account_name",	with: "Test Co" 
     end
