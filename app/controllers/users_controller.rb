@@ -32,7 +32,7 @@ class UsersController < ApplicationController
           notice: 'Password was successfully updated.'
         }
       else
-        format.html { render :edit }
+        format.html { render :password }
       end
     end
   end
