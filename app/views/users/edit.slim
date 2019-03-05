@@ -15,7 +15,7 @@
                   h4= "#{pluralize(@user.errors.count, "error")} \
                    prohibited the user from being saved:"
                   == @user.errors.full_messages\
-                  .map{|msg| content_tag(:li, msg}.join
+                  .map{|msg| content_tag(:li, msg)}.join
               .form-group
                 = f.label :name, class: 'control-label col-lg-2'
                 .col-lg-10

@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.feature "New", type: :feature do
+RSpec.feature "Edit", type: :feature do
   login_user
 
   it "should be able to visit the user index and see at least one user" do
@@ -11,41 +11,40 @@ RSpec.feature "New", type: :feature do
     expect(page).to have_content("#{@user.name}")
   end
 
-  context "click and add new user" do
+  context "click and edit the user" do
 
-    it "should click new and go to new page" do
+    it "should click edit and go to edit page" do
       visit account_users_path
-      click_on("Add User")
-      expect(current_path).to eql(new_account_user_path)
+      first('tbody tr').click_on("Edit")
+      expect(current_path).to eql(edit_account_user_path(@user))
     end
 
-    context "and on the new page" do
-      it "adds the new user successfully" do
+    context "and on the edit page" do
+      it "edit the user successfully" do
         visit account_users_path
-        click_on("Add User")
+        first('tbody tr').click_on("Edit")
 
-        within "#new_user" do
+        within "#edit_user_#{@user.id}" do
           fill_in "user_name", with: 'Test'
           fill_in "user_email", with: 'test@test.com'
-          select('User', :from => 'user_role')
         end
 
-        click_button("Add User")
+        click_button("Edit User")
         expect(current_path).to eql(account_users_path)
       end
 
-      it "and fails to add the new user successfully" do
+      it "and fail to edit the user successfully" do
         visit account_users_path
-        click_on("Add User")
+        first('tbody tr').click_on("Edit")
 
-        within "#new_user" do
+        within "#edit_user_#{@user.id}" do
           fill_in "user_name", with: 'Test'
           fill_in "user_email", with: ''
           select('User', :from => 'user_role')
         end
 
-        click_button("Add User")
-        expect(current_path).to eql(account_users_path)
+        click_button("Edit User")
+        expect(current_path).to eql(account_user_path(@user))
       end
     end
   end
