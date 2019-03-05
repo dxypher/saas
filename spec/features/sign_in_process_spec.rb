@@ -4,6 +4,7 @@ RSpec.feature "SignInProcesses", type: :feature do
   it "requires the user log in and successfully logs in" do
     password = '123456789'
     u = FactoryBot.create(:user, { password: password, password_confirmation: password })
+    u.add_role :user
 
     visit root_path
 

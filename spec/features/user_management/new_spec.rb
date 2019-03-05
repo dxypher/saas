@@ -1,14 +1,25 @@
 require 'rails_helper'
 
 RSpec.feature "New", type: :feature do
-  login_user
+  login_admin
 
   it "should be able to visit the user index and see at least one user" do
 
     visit account_users_path
 
     expect(current_path).to eql(account_users_path)
-    expect(page).to have_content("#{@user.name}")
+    expect(page).to have_content("#{@admin.name}")
+  end
+
+  context "a regular user" do
+    login_user
+
+    it "should redirect with only user access" do
+
+      visit account_users_path
+
+      expect(current_path).to eql(root_path)
+    end
   end
 
   context "click and add new user" do

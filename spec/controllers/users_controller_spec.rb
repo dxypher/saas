@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe UsersController, type: :controller do
-  login_user
+  login_admin
 
   describe "GET #index" do
     it "returns http success" do
@@ -18,9 +18,19 @@ RSpec.describe UsersController, type: :controller do
       get :index
       expect(assigns(:users).length).to equal(1)
     end
+
+    describe ":user role" do
+      login_user
+
+      it "denies access to regular :user role" do
+        get :index
+        expect(response).to redirect_to root_path
+      end
+    end
   end
 
   describe "GET #me" do
+    login_user
     it "returns http success" do
       get :me
       expect(response).to have_http_status(:success)
@@ -28,6 +38,7 @@ RSpec.describe UsersController, type: :controller do
   end
 
   describe "PUT #update_me" do
+    login_user
     user = FactoryBot.create(:user)
     it "returns http success" do
       put :update_me, params: {id: user.hash_id, user: {name: 'John'}}
@@ -70,6 +81,7 @@ RSpec.describe UsersController, type: :controller do
   end
 
   describe "GET #new" do
+    login_admin
     it "returns http success" do
       get :new
       expect(response).to have_http_status(:success)
@@ -82,6 +94,7 @@ RSpec.describe UsersController, type: :controller do
   end
 
   describe "POST #create" do
+    login_admin
     it "creates an user" do
       post :create, params: {
         user: FactoryBot.attributes_for(:user, {role: 'user'})
@@ -109,6 +122,7 @@ RSpec.describe UsersController, type: :controller do
   end
 
   describe "GET #edit" do
+    login_admin
     user = FactoryBot.create(:user)
     it "returns http success" do
       get :edit, params: {id: user.id}
@@ -122,6 +136,7 @@ RSpec.describe UsersController, type: :controller do
   end
 
   describe "PUT #update" do
+    login_admin
     user = FactoryBot.create(:user)
     it "returns http success" do
       put :update,  params: {id: user.hash_id, user: {name: "Yay"}}
@@ -138,6 +153,7 @@ RSpec.describe UsersController, type: :controller do
   end
 
   describe "DELETE #destroy" do
+    login_admin
     user = FactoryBot.create(:user)
     it "returns http success" do
       delete :destroy,  params: {id: user.hash_id}

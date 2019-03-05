@@ -6,4 +6,12 @@ module FeatureMacros
       login_as(@user, :scope => :user)
     end
   end
+
+  def login_admin
+    before(:each) do
+      @admin = FactoryBot.create(:user)
+      @admin.add_role :admin
+      login_as(@admin, :scope => :user)
+    end
+  end
 end
