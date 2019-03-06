@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :standups
   get 'accounts/new'
   get 'accounts/create'
   devise_for :users, controllers: { registrations: 'registrations' }
