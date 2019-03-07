@@ -19,5 +19,5 @@ Rails.application.routes.draw do
 
   root to: 'activity#mine'
 
-  get 'dates/:date', to: 'dates#update'
+  get 'dates/:date', to: 'dates#update', as: 'update_date'
 end
