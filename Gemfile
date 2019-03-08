@@ -71,6 +71,7 @@ group :development, :test do
   gem 'rspec-rails', '~> 3.5'
   gem 'rails-controller-testing'
   gem 'faker'
+  gem 'selenium-webdriver'
 end
 
 gem 'simplecov', :require => false, :group => :test
