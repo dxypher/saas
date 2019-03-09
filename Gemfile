@@ -74,8 +74,12 @@ group :development, :test do
   gem 'selenium-webdriver'
 end
 
-gem 'simplecov', :require => false, :group => :test
-gem "factory_bot_rails", "~> 4.0"
+
+group :test do
+  gem "factory_bot_rails", "~> 4.0"
+  gem 'simplecov', :require => false
+  gem 'shoulda-matchers'
+end
 
 group :development do
   gem "letter_opener"
