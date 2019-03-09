@@ -1,8 +1,8 @@
 FactoryBot.define do
   factory :team do
     name { "MyString" }
-    account { nil }
-    timezone { "MyString" }
+    account
+    timezone { "Arizona" }
     has_reminder { false }
     has_recap { false }
     hash_id { "MyString" }
