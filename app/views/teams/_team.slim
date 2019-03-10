@@ -1,0 +1,36 @@
+.col-sm-4
+  .box.box-primary
+    .box-header
+      .pull-right
+        - if current_user.has_role? :admin, current_account
+          = link_to team_path(team), {method: :delete,\
+            data: { confirm: "Are you sure? Deleting this team is permanent"}}\
+            do
+              button.btn.btn-default.btn-sm
+                span style="color:#b30000;"
+                  i.fa.fa-trash
+      = link_to team_path(team), {id: "team_#{team.hash_id}_header"} do
+        h3.box-title
+          = team.name
+    = link_to team_path(team), {id: "team_#{team.hash_id}_body"} do
+      .box-body
+        h4
+          | Description:
+
+        p
+          = team.description
+        h4 Members
+        .team-members
+          - if team.users.blank?
+            p No Users have been added to the team
+          - else
+            = team.users.pluck(:name).join(', ')
+        h4
+          = "Standup Details"
+        .row.m-t-sm
+          .col-sm-6
+            = "On days #{team.days.pluck(:day).map(&:humanize).join(', ')}"
+          .col-sm-6
+            = "Reminder is #{team.reminder_time.strftime("at %I:%M%p")}"
+            br
+            = "Recap is #{team.recap_time.strftime("at %I:%M%p")}
