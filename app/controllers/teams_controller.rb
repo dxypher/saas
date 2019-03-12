@@ -18,8 +18,8 @@ class TeamsController < ApplicationController
     @team = Team.new(team_params.except('days'))
     @team.account_id = current_account.id
     @team.days = days_of_the_week
-    convert_zone_teims_to_utc
-    autorize!(:create, @team)
+    convert_zone_times_to_utc
+    authorize!(:create, @team)
 
     if @team.save
       redirect_to @team, notice: 'Team was successfully created.'
@@ -51,7 +51,7 @@ class TeamsController < ApplicationController
 
   private
 
-  def teams_params
+  def team_params
     params.require(:team).permit(:name, :description, :timezone, :has_reminder,
                                  :has_recap, :reminder_time, days_of_the_week: [])
   end
@@ -59,7 +59,7 @@ class TeamsController < ApplicationController
   def set_users
     @account_users ||=
       current_account.users.where.not(invitation_accepted_at: nil) +
-      current_account.users(:admin).uniq
+      current_account.users.with_role(:admin).uniq
   end
 
   def days_of_the_week
@@ -93,8 +93,7 @@ class TeamsController < ApplicationController
       .utc
   end
 
-  def use_time_zone
+  def use_time_zone(&block)
     Time.use_zone(@team.timezone, &block)
   end
-  
 end
