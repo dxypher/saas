@@ -1,5 +1,6 @@
 class TeamsController < ApplicationController
   load_and_authorize_resource find_by: :hash_id, except: [:create]
+  around_action :use_time_zone, only: [:edit]
 
   def index
     @teams = visible_teams
@@ -25,6 +26,20 @@ class TeamsController < ApplicationController
     else
       set_users
       render :new
+    end
+  end
+
+
+  def update
+    @team = Team.friendly.find(params[:id])
+    @team.attributes = team_params.except('days')
+    @team.days = days_of_the_week
+    convert_zone_times_to_utc
+
+    if @team.save
+      redirect_to @team, notice: 'Team was successfully updated.'
+    else
+      render :edit
     end
   end
 
@@ -77,4 +92,9 @@ class TeamsController < ApplicationController
       .parse(@team.recap_time.to_s[11..18])
       .utc
   end
+
+  def use_time_zone
+    Time.use_zone(@team.timezone, &block)
+  end
+  
 end
