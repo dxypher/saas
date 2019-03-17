@@ -12,7 +12,14 @@ class TeamsController < ApplicationController
 
   def new
     @team = Team.new
+    set_users
   end
+
+  def edit
+    @team = Team.friendly.includes(:users).find(params[:id])
+    set_users
+  end
+  
 
   def create
     @team = Team.new(team_params.except('days'))
@@ -39,6 +46,7 @@ class TeamsController < ApplicationController
     if @team.save
       redirect_to @team, notice: 'Team was successfully updated.'
     else
+      set_users
       render :edit
     end
   end

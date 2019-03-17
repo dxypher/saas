@@ -31,6 +31,6 @@
           .col-sm-6
             = "On days #{team.days.pluck(:day).map(&:humanize).join(', ')}"
           .col-sm-6
-            = "Reminder is #{team.reminder_time.strftime("at %I:%M%p")}"
+            = "Reminder is #{team.reminder_time&.strftime("at %I:%M%p")}"
             br
-            = "Recap is #{team.recap_time.strftime("at %I:%M%p")}
+            = "Recap is #{team.recap_time&.strftime("at %I:%M%p")}"

@@ -7,7 +7,7 @@
           .pull-right
             - if current_user.has_role? :admin, current_account
               = link_to edit_team_path(@team),\
-                {class: "btn btn-xs btn-white",data:\
+                {class: "btn btn-xs btn-white", id:"edit_#{@team.hash_id}", data:\
                 {toggle:"tooltip", placement:"top", title:"Edit"},\
                 style: "margin-left:10px;"} do
                   i.fa.fa-pencil
