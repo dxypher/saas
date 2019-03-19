@@ -12,7 +12,7 @@ HTML
   body.fixed.skin-purple
     .wrapper
       = render 'layouts/navigation/layout'
-      .content-wrapper
+      .content-wrapper{class= "#{'no-team' unless @team.present? && !@team.id.nil?}"}
         .content.container-fluid
           = flash_messages
           = yield
