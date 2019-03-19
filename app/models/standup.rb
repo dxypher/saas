@@ -7,7 +7,7 @@ class Standup < ApplicationRecord
   has_many :task_memberships
   has_many :tasks, through: :task_memberships
   has_many :dids, 
-           -> { where(type: 'Did') }
+           -> { where(type: 'Did') },
            through: :task_memberships,
            source: :task
   has_many :todos,
