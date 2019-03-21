@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  resources :standups
+  get 's/new/(:date)', to: 'standups#new', as: 'new_standup'
+  get 's/edit/(:date)', to: 'standups#edit', as: 'edit_standup'
+  resources :standups, path: 's', except: [:new, :edit]
   get 'accounts/new'
   get 'accounts/create'
   devise_for :users, controllers: { registrations: 'registrations' }

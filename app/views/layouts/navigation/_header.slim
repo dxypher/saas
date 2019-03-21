@@ -7,6 +7,8 @@ header.main-header
         | Teams
       a.logo href="/s"
         | Standups
+      a.logo.standup href="/s/new/#{Date.today.iso8601}"
+        | Submit a Standup
     .navbar-custom-menu
       ul.nav.navbar-nav
         li.dropdown.notifications-menu
@@ -27,8 +29,9 @@ header.main-header
         li.dropdown.user.user-menu
           a.dropdown-toggle data-toggle="dropdown" href="#"
             img.user-image{
-               alt=("User Image")
-               src="#{gravatar_image_url(current_user.email, size: 25,secure:false )}"}
+              alt=("User Image")
+              src="#{gravatar_image_url(current_user.email, size: 25, secure:false )}"
+            }
             span.hidden-xs = current_user.name
           ul.dropdown-menu
             li.header= current_user.name
