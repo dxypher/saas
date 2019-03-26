@@ -101,6 +101,15 @@ class UsersController < ApplicationController
     end
   end
 
+  def standups
+    @user = User.friendly.find(params[:id])
+    @standups = @user
+                    .standups
+                    .includes(:dids, :todos, :blockers)
+                    .references(:tasks)
+                    .order('standup_date DESC')
+  end
+
   private
 
   # Use callbacks to share common setup or constraints between actions.

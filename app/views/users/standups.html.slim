@@ -1,0 +1,47 @@
+.content-header
+  h2=@user.name
+.content
+  .row
+    .col-lg-12
+      .box
+        .box-header.with-border
+          h3.box-title= "Information"
+        .box-body
+          p
+            strong Email
+            = ": #{@user.email}"
+          p
+            strong Timezone
+            = ": #{@user.time_zone}"
+  .row
+    .col-lg-12
+      .box
+        .box-header
+          h3.box-title= "#{@user.name}'s' Standups"
+  - if @standups.empty?
+    .row
+      .col-sm-12
+        p No standups are available to display
+  - @standups.each_slice(3) do |standups|
+    .row
+      - standups.each do |standup|
+        .col-sm-4
+          .box.box-primary
+            .box-header.with-border
+              h3.box-title= standup.standup_date
+            .box-body
+              h4
+                | Dids
+                ul.todo-list
+                  - standup.dids.each do |did|
+                    li= did.title
+              h4
+                | Todos
+                ul.todo-list
+                  - standup.todos.each do |todo|
+                    li= todo.title
+              h4
+                | Blockers
+                ul.todo-list
+                  - standup.blockers.each do |blocker|
+                    li= blocker.title

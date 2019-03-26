@@ -1,9 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe UsersController, type: :controller do
-  login_admin
+  login_user
 
   describe "GET #index" do
+    login_admin
+
     it "returns http success" do
       get :index
       expect(response).to have_http_status(:success)
@@ -18,7 +20,7 @@ RSpec.describe UsersController, type: :controller do
       get :index
       expect(assigns(:users).length).to equal(1)
     end
-
+    
     describe ":user role" do
       login_user
 
@@ -37,18 +39,25 @@ RSpec.describe UsersController, type: :controller do
     end
   end
 
+  describe "GET #standups" do
+    login_user
+    it "returns http success" do
+      get :standups, params: {id: @user.hash_id}
+      expect(response).to have_http_status(:success)
+    end
+  end
+
   describe "PUT #update_me" do
     login_user
-    user = FactoryBot.create(:user)
+
     it "returns http success" do
-      put :update_me, params: {id: user.hash_id, user: {name: 'John'}}
+      put :update_me, params: {id: @user.hash_id, user: {name: 'John'}}
       expect(response).to redirect_to my_settings_path
     end
 
     it "renders :me of failure" do
       put :update_me, params: {
-        id: user.hash_id,
-        user: {name: 'John', email: nil}
+        id: @user.hash_id, user: {name: 'John', email: nil}
       }
       expect(response).to render_template :me
     end
@@ -62,20 +71,22 @@ RSpec.describe UsersController, type: :controller do
   end
 
   describe "PUT #update_password" do
-    user = FactoryBot.create(:user)
+    @user = FactoryBot.create(:user)
     it "returns http success" do
       put :update_password, params: {
-        id: user.hash_id,
-        user: {password: 'd2g4j6mlp', password_confirmation: 'd2g4j6mlp'}
+        id: @user.hash_id, user: {
+          password: 'd2g4j6mlp', password_confirmation: 'd2g4j6mlp'
+        }
       }
       expect(response).to redirect_to my_password_path
     end
 
     it "renders :password of failure" do
-      put :update_password, params: {id: user.hash_id, user: {
-        password: '123',
-        password_confirmation: '123'
-      }}
+      put :update_password, params: {
+        id: @user.hash_id, user: {
+          password: '123', password_confirmation: '123'
+          }
+        }
       expect(response).to render_template :password
     end
   end
@@ -112,41 +123,42 @@ RSpec.describe UsersController, type: :controller do
     it "fails on non-unique email" do
       user = FactoryBot.create(:user)
       post :create,  params: {
-        user: FactoryBot.attributes_for(:user,{
-          email: user.email,
-          role: 'user'
-          }
-        )}
+        user: FactoryBot.attributes_for(
+          :user, {email: user.email, role: 'user'}
+        )
+      }
       expect(response).to render_template :new
     end
   end
 
   describe "GET #edit" do
     login_admin
-    user = FactoryBot.create(:user)
+    @user = FactoryBot.create(:user)
     it "returns http success" do
-      get :edit, params: {id: user.id}
+      get :edit, params: {id: @user.hash_id}
       expect(response).to have_http_status(:success)
     end
 
     it "renders :edit" do
-      get :edit, params: {id: user.hash_id}
+      get :edit, params: {id: @user.hash_id}
       expect(response).to render_template :edit
     end
   end
 
   describe "PUT #update" do
     login_admin
-    user = FactoryBot.create(:user)
+
+    @user = FactoryBot.create(:user)
     it "returns http success" do
-      put :update,  params: {id: user.hash_id, user: {name: "Yay"}}
+      put :update,  params: {id: @user.hash_id, user: {name: "Yay"}}
       expect(response).to redirect_to account_users_path
     end
 
     it "renders :edit on failure" do
       put :update,  params: {
-        id: user.hash_id,
-        user:FactoryBot.attributes_for(:user,{email: nil, role: 'user'})
+        id: @user.hash_id, user: FactoryBot.attributes_for(
+          :user, {email: nil, role: 'user'}
+        )
       }
       expect(response).to render_template :edit
     end
@@ -154,9 +166,9 @@ RSpec.describe UsersController, type: :controller do
 
   describe "DELETE #destroy" do
     login_admin
-    user = FactoryBot.create(:user)
+    @user = FactoryBot.create(:user)
     it "returns http success" do
-      delete :destroy,  params: {id: user.hash_id}
+      delete :destroy,  params: {id: @user.hash_id}
       expect(response).to redirect_to account_users_path
     end
   end
