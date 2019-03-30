@@ -42,11 +42,9 @@ class NewRegistrationService
   end
 
   def notify_slack
-    # notifier = Slack::Notifier.new(
-    #   "https://hooks.slack.com/services/89ypfhuiwquhfwfwef908wefoij"
-    # )
-    # notifier.ping(
-    #   "A New User has appeared! #{account.name} -   #{user.name}\" || ENV: #{Rails.env}"
-    #  )
+    NotificationServices::SlackWebhooks::NewAccount.(
+      account: account,
+      user: user
+    )
   end
 end
