@@ -1,4 +1,17 @@
 Rails.application.routes.draw do
+  require "sidekiq/web"
+  require 'sidekiq/cron/web'
+  Sidekiq::Web.use Rack::Auth::Basic do |username, password|
+    ActiveSupport::SecurityUtils.secure_compare(
+      ::Digest::SHA256.hexdigest(username),
+      ::Digest::SHA256.hexdigest(ENV["SK_USER"])
+    ) &
+    ActiveSupport::SecurityUtils.secure_compare(
+      ::Digest::SHA256.hexdigest(password),
+      ::Digest::SHA256.hexdigest(ENV["SK_PASS"])
+    )
+  end if Rails.env.production?
+  mount Sidekiq::Web, at: "/sidekiq"
   get 's/new/(:date)', to: 'standups#new', as: 'new_standup'
   get 's/edit/(:date)', to: 'standups#edit', as: 'edit_standup'
   resources :standups, path: 's', except: [:new, :edit]

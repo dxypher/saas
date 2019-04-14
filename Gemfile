@@ -52,6 +52,7 @@ gem 'bootstrap-sass', '~> 3.3.6'
 gem 'friendly_id', '~> 5.1.0'
 gem "slim-rails"
 gem 'sidekiq'
+gem 'sidekiq-cron'
 gem 'sinatra', github: 'sinatra/sinatra', require: nil
 gem 'sidekiq-statistic'
 gem 'gravatar_image_tag'
@@ -90,6 +91,7 @@ group :development do
   gem 'spring'
   gem 'spring-watcher-listen', '~> 2.0.0'
   gem 'capybara'
+  gem 'foreman'
 end
 
 
